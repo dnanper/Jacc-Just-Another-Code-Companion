@@ -43,6 +43,9 @@ class AgentState(TypedDict):
         step_count: Number of steps executed
         total_cost: Cumulative LLM cost in USD
         start_time: Unix timestamp when agent started
+        codebase_retriever: Optional CodebaseRetriever for code context
+        experience_store: Optional RepoExperienceStore for learned experiences
+        retrieved_context: Context retrieved from codebase index
     """
     # Conversation - append-only via LangGraph reducer - no Overwrite
     messages: Annotated[list[Message], add]
@@ -70,6 +73,11 @@ class AgentState(TypedDict):
     # HINDSIGHT
     global_guidelines: List[str]
     local_summary: str
+    
+    # Codebase indexing integration
+    codebase_retriever: Any | None  # CodebaseRetriever instance
+    experience_store: Any | None  # RepoExperienceStore instance
+    retrieved_context: list[dict] | None  # Retrieved code context
 
 
 def create_initial_state(
@@ -115,6 +123,9 @@ def create_initial_state(
         start_time=now,
         global_guidelines=[],
         local_summary="",
+        codebase_retriever=None,
+        experience_store=None,
+        retrieved_context=None,
     )
 
 
