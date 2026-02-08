@@ -1,0 +1,9 @@
+faiss-cpu
+einops
+tree-sitter
+tree-sitter-python
+tree-sitter-javascript
+tree-sitter-java
+tree-sitter-go
+tree-sitter-rust
+tree-sitter-c
